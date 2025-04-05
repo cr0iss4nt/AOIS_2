@@ -2,17 +2,20 @@ import re
 
 
 def normalize(formula):
+    formula = formula.replace(' ','')
     formula = re.sub(r'(!!)+', '', formula)
     formula = re.sub(r'!(\w)', r'(!\1)', formula)
-    while formula[0] == '(':
-        balance = 1
-        for i in range(1,len(formula)):
-            if formula[i] == '(':
+    while formula.startswith('(') and formula.endswith(')'):
+        balance = 0
+        for i, char in enumerate(formula):
+            if char == '(':
                 balance += 1
-            elif formula[i] == ')':
+            elif char == ')':
                 balance -= 1
-        if balance == 0 and formula[i] == ')':
-            formula = formula[1:-1]
+            if balance == 0:
+                break
+        if balance == 0 and i == len(formula) - 1:
+            formula = formula[1:-1].strip()
         else:
             break
     return formula

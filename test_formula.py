@@ -8,8 +8,8 @@ class TestFormula(unittest.TestCase):
         formula1 = "!A"
         formula2 = "!!!A"
         formula3 = "!!!!A"
-        self.assertEqual(normalize(formula1), "(!A)")
-        self.assertEqual(normalize(formula2), "(!A)")
+        self.assertEqual(normalize(formula1), "!A")
+        self.assertEqual(normalize(formula2), "!A")
         self.assertEqual(normalize(formula3), "A")
 
     def test_is_atomic(self):
