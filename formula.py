@@ -4,6 +4,17 @@ import re
 def normalize(formula):
     formula = re.sub(r'(!!)+', '', formula)
     formula = re.sub(r'!(\w)', r'(!\1)', formula)
+    while formula[0] == '(':
+        balance = 1
+        for i in range(1,len(formula)):
+            if formula[i] == '(':
+                balance += 1
+            elif formula[i] == ')':
+                balance -= 1
+        if balance == 0 and formula[i] == ')':
+            formula = formula[1:-1]
+        else:
+            break
     return formula
 
 
